@@ -15,10 +15,10 @@ find_package(geometry_msgs REQUIRED)
 find_package(pinocchio REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
-find_package(inekf REQUIRED)
+# find_package(inekf REQUIRED)
 find_package(builtin_interfaces REQUIRED)
-find_package(go2_description REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
+# find_package(go2_description REQUIRED)
+# find_package(rosidl_default_generators REQUIRED)
 
 unset(PYTHON_SOABI)
 
@@ -35,8 +35,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 add_executable(state_converter_node src/go2_state_converter_node.cpp)
 ament_target_dependencies(state_converter_node rclcpp unitree_go sensor_msgs)
 
-rosidl_target_interfaces(state_converter_node 
-  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(state_converter_node
+  ${PROJECT_NAME}__rosidl_typesupport_cpp
+)
 
 install(TARGETS
   state_converter_node
